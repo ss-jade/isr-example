@@ -29,7 +29,19 @@ ISR – is the name of the function that will be called each time the interrupt 
 
 Mode – defines when the interrupt should be triggered. Five constants are predefined as valid values: LOW, HIGH, CHANGE, FALLING, RISING.
 
+# GPIO connection to test
 
+![](https://lastminuteengineers.b-cdn.net/wp-content/uploads/arduino/Wiring-Push-Buttons-to-ESP32-For-GPIO-Interrupt.png)
+
+
+# The bounce problem
+
+A common problem with interrupts is that they often get triggered multiple times for the same event. If you look at the serial output of the above example, you will notice that even if you press the button only once, the counter is incremented several times.
+
+
+![](https://lastminuteengineers.b-cdn.net/wp-content/uploads/iot/Switch-Bounce-Signal.png)
+
+**Try the `millis()` function, it returns the number of milliseconds passed since the Arduino board began running the current program. This number will overflow (go back to zero), after approximately 50 days.**
 
 
 [^1]: https://lastminuteengineers.com/handling-esp32-gpio-interrupts-tutorial/

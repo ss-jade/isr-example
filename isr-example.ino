@@ -8,10 +8,19 @@ struct Button {
 // GPIO 18 instance
 Button button1 = {18, 0, false};
 
+//vars to track the timing of interrupts
+unsigned long button_time = 0;  
+unsigned long last_button_time = 0; 
+
 //ISR routine
 void IRAM_ATTR isr() {
-  button1.numberKeyPresses++;
-  button1.pressed = true;
+  button_time = millis();
+  if (button_time - last_button_time > 250)
+  {
+    button1.numberKeyPresses++;
+    button1.pressed = true;
+    last_button_time = button_time;
+  }
 }
 
 
