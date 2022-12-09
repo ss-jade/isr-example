@@ -11,11 +11,13 @@ Button button1 = {18, 0, false};
 //vars to track the timing of interrupts
 unsigned long button_time = 0;  
 unsigned long last_button_time = 0; 
+unsigned long difference = 0;
 
 //ISR routine
 void IRAM_ATTR isr() {
   button_time = millis();
-  if (button_time - last_button_time > 250)
+  difference = button_time - last_button_time;
+  if (difference > 250)
   {
     button1.numberKeyPresses++;
     button1.pressed = true;
@@ -33,6 +35,7 @@ void setup() {
 void loop() {
   if (button1.pressed) {
     Serial.printf("Button has been pressed %u times\n", button1.numberKeyPresses);
+    Serial.printf("%u \n", difference);
     button1.pressed = false;
   }
 }
